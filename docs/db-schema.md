@@ -1,19 +1,19 @@
 # Database Schema – Blog System
 
-## هدف
-ذخیره و مدیریت پست‌های بلاگ با دسته‌بندی‌ها، تگ‌ها و نسبت نویسندگان.
+## Goals
+Store and manage blog posts with categories, tags, and author relationships.
 
-## جداول و ستون‌ها (حداقل لازم)
+## Tables and Columns (Minimum Required)
 ### blogs
 - id (PK, bigint)
 - title (varchar 255, not null)
 - slug (varchar 255, unique, indexed)
 - excerpt (text, nullable)
 - content (longtext)
-- status (enum: draft|published|archived)  -- پیشنهاد
+- status (enum: draft|published|archived)
 - published_at (datetime, nullable)
-- author_id (FK -> users.id)               -- اگر داری
-- created_at, updated_at, deleted_at?      -- soft delete پیشنهادی
+- author_id (FK -> users.id)
+- created_at, updated_at, deleted_at?
 
 ### categories
 - id (PK)
@@ -38,28 +38,22 @@
 - tag_id (FK -> tags.id, on delete cascade, indexed)
 - PRIMARY KEY (blog_id, tag_id)
 
-### blogs_users (Pivot)  -- اگر همکاری چند نویسنده داری
+### blogs_users (Pivot)
 - blog_id (FK -> blogs.id, on delete cascade, indexed)
 - user_id (FK -> users.id, on delete cascade, indexed)
-- role (enum: owner|coauthor|editor)  -- اختیاری
+- role (enum: owner|coauthor|editor)
 - PRIMARY KEY (blog_id, user_id)
 
-## نام‌گذاری و قیود
-- تمام `slug`ها UNIQUE.
-- Pivotها Composite PK داشته باشند تا رکورد تکراری وارد نشود.
-- ایندکس‌ها: slugها، published_at (برای مرتب‌سازی)، status.
-- پیشنهاد: Soft Delete روی blogs برای بازیابی سریع.
-
-## روابط (Laravel)
+## Relationships (Laravel)
 - Blog:
-  - belongsTo User (author) *(اختیاری)*
+  - belongsTo User (author) *(optional)*
   - belongsToMany Category through blogs_categories
   - belongsToMany Tag through blogs_tags
-  - belongsToMany User (coauthors) through blogs_users *(اختیاری)*
+  - belongsToMany User (coauthors) through blogs_users *(optional)*
 - Category: belongsToMany Blog
 - Tag: belongsToMany Blog
 
-## ERD (مرمید)
+## ERD (Mermaid)
 ```mermaid
 ---
 title: ERD
