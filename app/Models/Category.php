@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Category extends Model
 {
@@ -10,4 +12,9 @@ class Category extends Model
         "name"
     ];
     public $timestamps = false;
+
+    public function blogs(): BelongsToMany
+    {
+        return $this->belongsToMany(Blog::class, "blog_category", "category_id", "blog_id");
+    }
 }
