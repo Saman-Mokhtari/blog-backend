@@ -2,14 +2,18 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Blog extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'title',
-        'excerpt',
+        'slug',
+        'excerp',
         'content',
         'likes',
         'status',
@@ -17,7 +21,11 @@ class Blog extends Model
         'views',
         'meta_data',
     ];
-
+    protected $casts = [
+        'meta_data' => 'json',   // یا 'json' — فرقی نمی‌کنه
+        'likes'     => 'integer',
+        'views'     => 'integer',
+    ];
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, "blog_category", "blog_id", "category_id");
