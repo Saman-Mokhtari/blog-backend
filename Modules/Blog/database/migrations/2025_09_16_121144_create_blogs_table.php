@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('blogs', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('title');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->string('excerp');
             $table->string('content');
             $table->bigInteger('likes');

@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\User;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Modules\Blog\Database\Factories\BlogFactory;
 
 class Blog extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory, HasUuids, Sluggable;
 
     protected $fillable = [
         'title',
@@ -43,6 +44,15 @@ class Blog extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, "blog_user", "blog_id", "author_id");
+    }
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
     }
 
     // ===== Convert array to json while creating the record =====

@@ -13,7 +13,8 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return view('blog::index');
+        $blog = Blog::factory()->count(10)->create();
+        return response()->json('Successfully created 10 blog posts');
     }
 
     /**
@@ -26,7 +27,7 @@ class BlogController extends Controller
      */
     public function show(Blog $blog)
     {
-        return view('blog::show');
+        return response()->json($blog);
     }
 
     /**
