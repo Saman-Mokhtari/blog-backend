@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Modules\Blog\Database\Factories\BlogFactory;
 
 class Blog extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
         'title',

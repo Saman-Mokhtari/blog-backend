@@ -69,4 +69,23 @@ class RelationshipFactoryTest extends TestCase
             'author_id' => $user2->id,
         ]);
     }
+
+    public function test_blogs_belongs_to_many_users_and_vice_versa()
+    {
+        $blog = Blog::factory()->create();
+        $user1 = User::factory()->create();
+        $user2 = User::factory()->create();
+
+        $blog->users()->sync([$user1->id, $user2->id]);
+
+        $this->assertDatabaseHas('blog_user', [
+            'blog_id'   => $blog->id,
+            'author_id' => $user1->id,
+        ]);
+
+        $this->assertDatabaseHas('blog_user', [
+            'blog_id'   => $blog->id,
+            'author_id' => $user2->id,
+        ]);
+    }
 }
