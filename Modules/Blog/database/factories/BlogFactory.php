@@ -22,8 +22,8 @@ class BlogFactory extends Factory
     {
 
         return [
-            'title'   => fake()->sentence(1),
-            'slug'    => fake()->slug(),
+            'title'   => fake()->words(4, true),
+            'slug'    => null,
             'excerp' => fake()->sentence(3),
             'content' => fake()->paragraph(),
             'status'  => fake()->randomElement(['published', 'draft', 'archived']),
