@@ -4,9 +4,9 @@ namespace Modules\Blog\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Modules\Blog\Models\Blog;
+use Modules\Blog\Models\Tag;
 
-class BlogController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +24,7 @@ class BlogController extends Controller
     /**
      * Show the specified resource.
      */
-    public function show(Blog $blog)
+    public function show(Tag $tag)
     {
         return view('blog::show');
     }
@@ -32,15 +32,15 @@ class BlogController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Blog $blog) {}
+    public function update(Request $request, Tag $tag) {}
 
     /**
      * Remove the specified resource from storage.
      */
-    public function restore(Blog $blog) {}
+    public function restore(Tag $tag) {}
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Blog $blog) {}
+    public function destroy(Tag $tag) {}
 }

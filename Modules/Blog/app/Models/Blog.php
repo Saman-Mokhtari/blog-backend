@@ -23,11 +23,6 @@ class Blog extends Model
         'views',
         'meta_data',
     ];
-    protected $casts = [
-        'meta_data' => 'json',   // یا 'json' — فرقی نمی‌کنه
-        'likes'     => 'integer',
-        'views'     => 'integer',
-    ];
 
     protected static function newFactory(): BlogFactory
     {
@@ -47,5 +42,13 @@ class Blog extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, "blog_user", "blog_id", "author_id");
+    }
+
+    // ===== Convert array to json while creating the record =====
+    public function setMetaDataAttribute($value)
+    {
+        $this->attributes['meta_data'] = is_array($value)
+            ? json_encode($value)
+            : $value;
     }
 }
