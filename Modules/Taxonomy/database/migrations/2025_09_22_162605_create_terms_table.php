@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('term');
             $table->string('slug')->unique();
             $table->foreignUuid('taxonomy_id')->constrained();
-            $table->foreignUuid('parent_id')->constrained('terms')->nullable();
+            $table->uuid('parent_id')->nullable();
+            $table->foreign('parent_id')->references('id')->on('terms')->cascadeOnDelete();
             $table->string('description')->nullable();
             $table->timestamps();
         });

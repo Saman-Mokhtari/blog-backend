@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\User;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Modules\Blog\Database\Factories\BlogFactory;
+use Modules\Taxonomy\Models\Term;
 
 class Blog extends Model
 {
@@ -31,14 +33,30 @@ class Blog extends Model
         return BlogFactory::new();
     }
 
-    public function categories(): BelongsToMany
+    public function categories(): MorphToMany
     {
-        return $this->belongsToMany(Category::class, "blog_category", "blog_id", "category_id");
+        return $this->morphToMany(
+            Term::class,
+            "termable",
+            "term_relationships",
+            "termable_id",
+            "term_id"
+        )->whereHas('taxonomy', function ($q) {
+            $q->where('name', 'Category');
+        });
     }
 
-    public function tags(): BelongsToMany
+    public function tags(): MorphToMany
     {
-        return $this->belongsToMany(Tag::class, "blog_tag", "blog_id", "tag_id");
+        return $this->morphToMany(
+            Term::class,
+            "termable",
+            "term_relationships",
+            "termable_id",
+            "term_id"
+        )->whereHas('taxonomy', function ($q) {
+            $q->where('name', 'Tag');
+        });
     }
 
     public function users(): BelongsToMany
