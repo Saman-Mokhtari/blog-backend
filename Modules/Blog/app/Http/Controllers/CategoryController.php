@@ -5,16 +5,15 @@ namespace Modules\Blog\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Modules\Blog\Models\Category;
+use Modules\Blog\Transformers\Category\CategoryCollection;
+use Modules\Blog\Transformers\Category\CategoryResource;
 
 class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        return view('blog::index');
-    }
+    public function index() {}
 
     /**
      * Store a newly created resource in storage.
@@ -26,7 +25,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return view('blog::show');
+        return new CategoryResource($category);
     }
 
     /**

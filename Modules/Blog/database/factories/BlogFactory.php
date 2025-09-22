@@ -22,7 +22,7 @@ class BlogFactory extends Factory
     {
 
         return [
-            'title'   => fake()->words(4, true),
+            'title'   => fake()->unique()->words(4, true),
             'slug'    => null,
             'excerp' => fake()->sentence(3),
             'content' => fake()->paragraph(),
