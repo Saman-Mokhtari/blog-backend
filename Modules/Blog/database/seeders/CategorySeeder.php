@@ -3,18 +3,18 @@
 namespace Modules\Blog\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Modules\Blog\Models\Category;
 
-class BlogDatabaseSeeder extends Seeder
+class CategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $this->call([
-            CategorySeeder::class,
-            TagSeeder::class,
-            BlogSeeder::class,
-        ]);
+        Category::factory()
+            ->count(5)
+            ->hasBlogs(3)
+            ->create();
     }
 }

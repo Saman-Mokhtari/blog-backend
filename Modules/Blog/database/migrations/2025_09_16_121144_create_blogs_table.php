@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('blogs', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('title');
+            $table->string('title')->unique();
             $table->string('slug')->unique();
-            $table->string('excerp');
-            $table->string('content');
-            $table->bigInteger('likes');
+            $table->text('excerp')->nullable();
+            $table->longText('content');
+            $table->unsignedBigInteger('likes')->default(0);
             $table->enum('status', ['draft', 'published', 'archived'])->default('draft');
-            $table->string('cover');
-            $table->bigInteger('views');
-            $table->json('meta_data');
+            $table->string('cover')->nullable();
+            $table->unsignedBigInteger('views')->default(0);
+            $table->json('meta_data')->nullable();
             $table->timestamps();
         });
     }
