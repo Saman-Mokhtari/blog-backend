@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('term_relationships', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('term_id')->constrained();
-            $table->morphs('termable');
+            $table->uuidMorphs('termable');
             $table->timestamps();
         });
     }
