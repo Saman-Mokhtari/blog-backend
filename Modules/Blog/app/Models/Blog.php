@@ -33,6 +33,16 @@ class Blog extends Model
         return BlogFactory::new();
     }
 
+    public function terms() : MorphToMany
+    {
+        return $this->morphToMany(
+            Term::class,
+            "termable",
+            "term_relationships",
+            "termable_id",
+            "term_id"
+        );
+    }
     public function categories(): MorphToMany
     {
         return $this->morphToMany(

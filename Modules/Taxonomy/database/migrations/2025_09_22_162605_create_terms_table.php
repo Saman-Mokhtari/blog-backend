@@ -14,13 +14,20 @@ return new class extends Migration
         Schema::create('terms', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('term');
-            $table->string('slug')->unique();
-            $table->foreignUuid('taxonomy_id')->constrained();
-            $table->uuid('parent_id')->nullable();
-            $table->foreign('parent_id')->references('id')->on('terms')->cascadeOnDelete();
+            $table->string('slug');
+            $table->foreignUuid('taxonomy_id')
+                ->constrained('taxonomies')
+                ->cascadeOnDelete();
+            $table->foreignUuid('parent_id')
+                ->nullable()
+                ->constrained('terms')
+                ->cascadeOnDelete();
             $table->string('description')->nullable();
             $table->timestamps();
+
+            $table->unique(['taxonomy_id', 'slug']);
         });
+
     }
 
     /**

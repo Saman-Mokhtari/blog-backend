@@ -2,26 +2,37 @@
 
 namespace Modules\Taxonomy\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Modules\Taxonomy\Database\Factories\TermFactory;
 
 // use Modules\Taxonomy\Database\Factories\TermFactory;
 
 class Term extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory, HasUuids, Sluggable;
 
     /**
      * The attributes that are mass assignable.
      */
     protected $fillable = ['term', 'slug', 'taxonomy_id', 'parent_id', 'description'];
 
-    // protected static function newFactory(): TermFactory
-    // {
-    //     // return TermFactory::new();
-    // }
+    public function Sluggable(): array
+    {
+        return [
+          'slug' => [
+              'source' => 'term',
+          ]
+        ];
+    }
+
+     protected static function newFactory(): TermFactory
+     {
+          return TermFactory::new();
+     }
 
     public function taxonomy(): BelongsTo
     {

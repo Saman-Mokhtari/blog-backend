@@ -38,6 +38,7 @@ class BlogFactory extends Factory
         ];
     }
 
+
     public function draft(): static
     {
         return $this->state(fn(array $attributes) => [

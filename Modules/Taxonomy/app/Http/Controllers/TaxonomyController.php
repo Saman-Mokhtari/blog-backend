@@ -5,6 +5,7 @@ namespace Modules\Taxonomy\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Modules\Blog\Models\Blog;
+use Modules\Taxonomy\Database\Factories\TaxonomyFactory;
 use Modules\Taxonomy\Models\Taxonomy;
 use Modules\Taxonomy\Models\Term;
 
@@ -15,9 +16,10 @@ class TaxonomyController extends Controller
      */
     public function index()
     {
-        $blog = Blog::whereId('cc110c3b-97d9-11f0-90fe-c87f54cbd214')->first();
-        $clothes = $blog->categories->last();
-        return $blog->tags;
+        $blogs = Blog::all();
+        $terms = $blogs->random()->terms()->taxonomy()->where('name', 'Category');
+        $cat = $terms->taxonomy;
+        dd($cat);
     }
 
     /**

@@ -12,9 +12,8 @@ class BlogDatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            CategorySeeder::class,
-            TagSeeder::class,
             BlogSeeder::class,
+            BlogTermPivotSeeder::class,
         ]);
     }
 }
