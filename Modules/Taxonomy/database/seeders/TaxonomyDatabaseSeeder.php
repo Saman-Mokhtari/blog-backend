@@ -11,6 +11,9 @@ class TaxonomyDatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // $this->call([]);
+         $this->call([
+             TaxonomySeeder::class,
+             TermSeeder::class
+         ]);
     }
 }

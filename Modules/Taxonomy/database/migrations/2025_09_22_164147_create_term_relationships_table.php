@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('term_relationships', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('term_id')->constrained();
+            $table->foreignUuid('term_id')->constrained()->cascadeOnDelete();
             $table->uuidMorphs('termable');
-            $table->timestamps();
+
+            $table->unique(['term_id', 'termable_id', 'termable_type']);
         });
     }
 

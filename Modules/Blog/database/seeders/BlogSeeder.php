@@ -4,6 +4,7 @@ namespace Modules\Blog\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Modules\Blog\Models\Blog;
+use Modules\Taxonomy\Models\Term;
 
 class BlogSeeder extends Seeder
 {
@@ -12,10 +13,6 @@ class BlogSeeder extends Seeder
      */
     public function run(): void
     {
-        Blog::factory()
-            ->count(10)
-            ->hasCategories(3)
-            ->hasTags(5)
-            ->create();
+        Blog::factory()->count(10)->create();
     }
 }
